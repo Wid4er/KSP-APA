@@ -1,15 +1,15 @@
-# Validación
+# Validation
 
-El usuario informa de funcionamiento correcto en su instalación personal de KSP. Esto no implica validación exhaustiva con todas las naves, cuerpos celestes o combinaciones de mods.
+The user reports that the mod works correctly in their personal KSP installation. This does not imply exhaustive validation with every vessel, celestial body or mod combination.
 
-La versión 0.1.2 dispone de:
+Version 0.1.2 includes:
 
-- **16 grupos de pruebas de lógica:** estabilidad, umbrales, pausas y warp, muestras inválidas, permisos de transición y pausa de confirmación.
-- **8 grupos de regresiones de recarga:** posición cero, altitud, carga incompleta, cambios de origen y rotación, rails, UNPARK y serialización. Usan modelos de coordenadas de KSP/Unity, no una simulación real del juego.
-- **44 comprobaciones de ensamblados:** APIs y rutas de AirPark/KSP, persistencia, ancla, pausa y ausencia de escrituras de movimiento por el addon.
+- **16 groups of logic tests:** stability, thresholds, pause and time warp, invalid samples, transition permissions and the confirmation pause lifecycle.
+- **8 groups of reload regression tests:** zero position, altitude, incomplete loading, origin shifts and rotation, rails, UNPARK and serialization. These use models of KSP/Unity coordinates, not an actual game simulation.
+- **44 assembly checks:** AirPark/KSP APIs and call paths, persistence, parking anchors, pause and the absence of motion writes by the addon.
 
-Ejecuta `sh test.sh` con `KSP_ROOT` configurado. La compilación debe terminar sin errores ni avisos.
+Run `sh test.sh` with `KSP_ROOT` configured. The build should finish without errors or warnings.
 
-En una instalación nueva, comprobar PARK desde toolbar, menú y grupo de acción; reinicio del contador al superar ambos límites; cancelación; recarga desde Tracking Station; confirmación centrada con pausa; Cancel; Confirm Unpark; y AutoPark bloqueado.
+On a new installation, check PARK from the toolbar, part menu and action groups; timer resets at both speed limits; cancellation; reloading from the Tracking Station; the centered confirmation with pause; Cancel; Confirm Unpark; and blocked AutoPark.
 
-El addon conserva la restauración de velocidad original de AirPark. Los cambios de referencia, gran altitud y cuerpos de mods necesitan pruebas específicas. La corrección de posición no puede recuperar una nave ya guardada en una ubicación geográfica incorrecta; en ese caso se necesita un guardado anterior válido.
+The addon preserves AirPark's original velocity restoration. Reference frame changes, high altitude and bodies added by mods need specific testing. The position fix cannot recover a vessel already saved at an incorrect geographic location; in that case, an earlier valid save is required.

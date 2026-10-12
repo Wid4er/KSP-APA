@@ -2,52 +2,52 @@
 
 # KSP-APA — AirPark Stability
 
-**AirPark Stability 0.1.2** añade una comprobación de vuelo estacionario a [AirPark Continued](https://github.com/linuxgurugamer/AirPark) para Kerbal Space Program.
+**AirPark Stability 0.1.2** adds a hover stability check to [AirPark Continued](https://github.com/linuxgurugamer/AirPark) for Kerbal Space Program.
 
-## ¿Qué hace?
+## What does it do?
 
-Antes de aparcar, la nave debe permanecer estable durante **10 segundos consecutivos**, con:
+Before parking, your vessel must remain stable for **10 consecutive seconds**, with:
 
-- Velocidad superficial inferior a **1,5 m/s**.
-- Velocidad vertical absoluta inferior a **0,5 m/s**.
-- Vuelo dentro de una atmósfera y física activa a **1×**.
+- Surface speed below **1.5 m/s**.
+- Absolute vertical speed below **0.5 m/s**.
+- Atmospheric flight with active physics at **1×** time warp.
 
-Si una velocidad supera su límite, el contador vuelve a cero. El panel muestra el progreso y permite cancelar. La nave mantiene su física normal durante la comprobación: sus motores o envolventes deben proporcionar la sustentación.
+If either speed reaches or exceeds its limit, the timer resets. The panel shows progress and lets you cancel. Normal physics continues throughout the check: your engines or airship envelopes must provide the lift.
 
-Al completar la comprobación se utiliza el aparcamiento original de AirPark. Para desaparcar, **Confirm Unpark** aparece en el centro de la pantalla y pausa el juego. Los botones están en vertical: **Cancel** conserva la nave aparcada; **Confirm Unpark** reanuda el juego y desparca.
+Once the check succeeds, the addon uses AirPark's original parking mechanism. To unpark, **Confirm Unpark** appears in the center of the screen and pauses the game. Its buttons are stacked vertically: **Cancel** keeps the vessel parked; **Confirm Unpark** resumes the game and unparks it.
 
-También corrige la persistencia de posición de AirPark al volver desde Tracking Station y mantiene **AutoPark desactivado** para que no evite las comprobaciones.
+It also fixes AirPark's position persistence when returning from the Tracking Station and keeps **AutoPark disabled** so it cannot bypass the checks.
 
-## Requisitos
+## Requirements
 
-- **Kerbal Space Program 1.12.x**; desarrollado y probado en una instalación de KSP 1.12.5.
-- **AirPark Continued 1.7.1.9**, con sus dependencias: ModuleManager, ToolbarController, SpaceTuxLibrary y ClickThroughBlocker.
-- **HarmonyKSP**; la integración se ha comprobado con Harmony 2.2.1.0.
+- **Kerbal Space Program 1.12.x**; developed and tested in a KSP 1.12.5 installation.
+- **AirPark Continued 1.7.1.9**, with its dependencies: ModuleManager, ToolbarController, SpaceTuxLibrary and ClickThroughBlocker.
+- **HarmonyKSP**; the integration has been checked with Harmony 2.2.1.0.
 
-**HLAirshipsCore es opcional.** Si lo utilizas, su sustentación sigue funcionando durante la comprobación. Suelta el anclaje HL antes de solicitar PARK.
+**HLAirshipsCore is optional.** If installed, its buoyancy continues to work during the check. Release the HL anchor before requesting PARK.
 
-Las dependencias no están incluidas en la descarga.
+Dependencies are not included in the download.
 
-## Instalación y uso
+## Installation and use
 
-1. Instala los requisitos anteriores.
-2. Descarga el ZIP de [Releases](https://github.com/Wid4er/KSP-APA/releases).
-3. Copia su carpeta `GameData` dentro de la carpeta de KSP. La DLL debe quedar en `GameData/APA/Plugins/AirParkStability.dll`.
-4. Reinicia KSP. Usa los controles de AirPark en la barra, el menú de la pieza o un grupo de acción.
+1. Install the requirements above.
+2. Download the ZIP from [Releases](https://github.com/Wid4er/KSP-APA/releases).
+3. Copy its `GameData` folder into your KSP directory. The DLL should be at `GameData/APA/Plugins/AirParkStability.dll`.
+4. Restart KSP. Use AirPark's toolbar, part menu or action group controls.
 
-Instala una sola copia de APA.
+Install only one copy of APA.
 
-## Configuración
+## Configuration
 
-Con KSP cerrado, edita `GameData/APA/Settings.cfg`:
+With KSP closed, edit `GameData/APA/Settings.cfg`:
 
-| Parámetro | Valor predeterminado |
+| Parameter | Default value |
 | --- | ---: |
 | `maxSurfaceSpeed` | 1.5 m/s |
 | `maxVerticalSpeed` | 0.5 m/s |
 | `requiredSeconds` | 10.0 s |
 | `debugLogging` | false |
 
-Usa valores positivos y punto decimal. La atmósfera, el vuelo y la física a 1× siguen siendo obligatorios.
+Use positive values and a decimal point. Atmospheric flight and active physics at 1× remain mandatory.
 
-Para compilar o ejecutar las pruebas, consulta [BUILD.md](docs/BUILD.md). El alcance de la validación está en [TESTING.md](docs/TESTING.md).
+For build and test instructions, see [BUILD.md](docs/BUILD.md). Validation scope is described in [TESTING.md](docs/TESTING.md).

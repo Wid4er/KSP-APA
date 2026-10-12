@@ -1,16 +1,16 @@
-# Compilación
+# Building
 
-Requisitos: .NET SDK 8, una instalación de KSP 1.12.x, HarmonyKSP y ClickThroughBlocker. La DLL se compila para .NET Framework 4.7.2 con C# 7.3.
+Requirements: .NET SDK 8, a KSP 1.12.x installation, HarmonyKSP and ClickThroughBlocker. The addon DLL targets .NET Framework 4.7.2 with C# 7.3.
 
 Linux:
 
 ```sh
-export KSP_ROOT='/ruta/a/Kerbal Space Program'
+export KSP_ROOT='/path/to/Kerbal Space Program'
 sh build.sh
 sh test.sh
 ```
 
-`DOTNET` permite indicar el ejecutable del SDK. `build.sh` copia la DLL a `APA/Plugins`; si APA está enlazada a GameData, esa es la instalación activa.
+Set `DOTNET` to specify the SDK executable. `build.sh` copies the DLL to `APA/Plugins`; if APA is linked to GameData, this updates the active installation.
 
 Windows, PowerShell:
 
@@ -23,18 +23,18 @@ dotnet run --project Tests/ReloadTests.csproj -c Release
 dotnet run --project Tests/AssemblyAudit.csproj -c Release -- $env:KSP_ROOT (Get-Location).Path
 ```
 
-El proyecto detecta `KSP_x64_Data/Managed` o `KSP_Data/Managed`. También admite `-p:KspRoot=...`, `KspManaged`, `HarmonyPath`, `ClickThroughPath` y `FrameworkPathOverride`.
+The project detects `KSP_x64_Data/Managed` or `KSP_Data/Managed`. You can also override `KspRoot`, `KspManaged`, `HarmonyPath`, `ClickThroughPath` and `FrameworkPathOverride` using `-p:Property=Value`.
 
-Las referencias al juego y a los mods usan `Private=false`; no se redistribuyen sus DLL. AirPark y HLAirshipsCore se integran mediante reflexión. Los puntos de integración de AirPark se limitan a la versión 1.7.1.9 auditada.
+References to the game and other mods use `Private=false`; their DLLs are not redistributed. AirPark and HLAirshipsCore are integrated through reflection. AirPark integration is restricted to the audited version 1.7.1.9.
 
-## Paquete de release
+## Release package
 
-Desde un checkout comprometido:
+From a checkout with your changes committed:
 
 ```sh
 python3 tools/package_release.py --output dist
 ```
 
-El script obtiene los archivos del commit actual, comprueba que solo exista la DLL propia y genera `AirParkStability-<version>.zip` y su SHA256. El ZIP contiene `GameData/APA`, README y documentación pública; excluye fuentes, pruebas, logs, guardados y dependencias.
+The script reads files from the current commit, checks that only the addon's DLL is included, and creates `AirParkStability-<version>.zip` and its SHA256 checksum. The ZIP contains `GameData/APA`, README and public documentation; it excludes source, tests, logs, saves and dependencies.
 
-Antes de publicar otra versión, actualiza `Source/AssemblyInfo.cs` y `APA/AirParkStability.version`, compila, ejecuta las pruebas y crea un commit con la DLL comprobada. GitHub no necesita descargar las bibliotecas de KSP.
+Before publishing another version, update `Source/AssemblyInfo.cs` and `APA/AirParkStability.version`, build, run the tests and commit the verified DLL. GitHub does not need to download KSP libraries.
