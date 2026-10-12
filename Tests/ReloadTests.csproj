@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../Source/StabilityMonitor.cs" Link="StabilityMonitor.cs" />
+    <Compile Include="../Source/VectorPersistence.cs" Link="VectorPersistence.cs" />
+    <Compile Include="../Source/ParkedPose.cs" Link="ParkedPose.cs" />
+    <Compile Include="ReloadTests.cs" />
+    <Compile Include="ReloadTestDoubles.cs" />
+  </ItemGroup>
+</Project>

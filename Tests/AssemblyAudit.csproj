@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <KspRoot Condition="'$(KspRoot)' == ''">$(KSP_ROOT)</KspRoot>
+    <KspManaged Condition="'$(KspManaged)' == '' and Exists('$(KspRoot)/KSP_x64_Data/Managed')">$(KspRoot)/KSP_x64_Data/Managed</KspManaged>
+    <KspManaged Condition="'$(KspManaged)' == ''">$(KspRoot)/KSP_Data/Managed</KspManaged>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyAudit.cs" />
+    <Reference Include="Mono.Cecil"><HintPath>$(KspManaged)/Mono.Cecil.dll</HintPath></Reference>
+  </ItemGroup>
+</Project>

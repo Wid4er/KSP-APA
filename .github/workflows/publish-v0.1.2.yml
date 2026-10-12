@@ -1,0 +1,49 @@
+# Temporary one-time publisher for the explicitly requested v0.1.2 release.
+# Remove this workflow after the release and downloaded asset are verified.
+name: Publish v0.1.2 once
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/publish-v0.1.2.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    if: github.event.head_commit.message == 'Publish AirPark Stability v0.1.2'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Verify fixed release version and package
+        run: |
+          python3 - <<'PY'
+          import json
+          v = json.load(open('APA/AirParkStability.version'))['VERSION']
+          assert v == {'MAJOR': 0, 'MINOR': 1, 'PATCH': 2, 'BUILD': 0}
+          PY
+          python3 tools/package_release.py --output dist
+      - name: Publish only v0.1.2
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          if gh release view v0.1.2 >/dev/null 2>&1; then
+            echo 'v0.1.2 already exists; nothing to publish.'
+            exit 0
+          fi
+          cat > release-notes.md <<'NOTES'
+          AirPark Stability añade comprobación de vuelo estacionario antes de PARK y confirmación centrada con pausa para UNPARK. Incluye la corrección de persistencia de posición al recargar desde Tracking Station. AutoPark permanece desactivado.
+
+          Requisitos: KSP 1.12.x, AirPark Continued 1.7.1.9 con sus dependencias y HarmonyKSP. HLAirshipsCore es opcional. Las dependencias no están incluidas.
+
+          Instalación: extrae el ZIP y copia GameData dentro de la carpeta de KSP. Instala una sola copia de APA.
+
+          El usuario informa de funcionamiento correcto en su instalación personal. Las pruebas automáticas no sustituyen la validación de todas las combinaciones de mods.
+          NOTES
+          gh release create v0.1.2 dist/AirParkStability-0.1.2.zip dist/AirParkStability-0.1.2.zip.sha256 \
+            --target "$GITHUB_SHA" --title 'AirPark Stability 0.1.2' \
+            --notes-file release-notes.md --latest

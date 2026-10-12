@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../Source/StabilityMonitor.cs" Link="StabilityMonitor.cs" />
+    <Compile Include="../Source/OperationPermit.cs" Link="OperationPermit.cs" />
+    <Compile Include="../Source/ConfirmationPause.cs" Link="ConfirmationPause.cs" />
+    <Compile Include="LogicTests.cs" />
+  </ItemGroup>
+</Project>

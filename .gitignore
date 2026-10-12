@@ -1,0 +1,15 @@
+bin/
+obj/
+Tests/bin/
+Tests/obj/
+artifacts/
+*.pdb
+*.user
+dist/
+ayuda/
+KSP.log
+TASK.md
+memory.md
+docs/INTEGRATION.md
+docs/VALIDATION.md
+docs/RELOAD-ISSUE.md

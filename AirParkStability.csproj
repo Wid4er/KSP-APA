@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>7.3</LangVersion>
+    <AssemblyName>AirParkStability</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <Deterministic>true</Deterministic>
+    <KspRoot Condition="'$(KspRoot)' == ''">$(KSP_ROOT)</KspRoot>
+    <KspManaged Condition="'$(KspManaged)' == '' and Exists('$(KspRoot)/KSP_x64_Data/Managed')">$(KspRoot)/KSP_x64_Data/Managed</KspManaged>
+    <KspManaged Condition="'$(KspManaged)' == ''">$(KspRoot)/KSP_Data/Managed</KspManaged>
+    <HarmonyPath Condition="'$(HarmonyPath)' == ''">$(KspRoot)/GameData/000_Harmony/0Harmony.dll</HarmonyPath>
+    <ClickThroughPath Condition="'$(ClickThroughPath)' == ''">$(KspRoot)/GameData/000_ClickThroughBlocker/Plugins/ClickThroughBlocker.dll</ClickThroughPath>
+    <AutomaticallyUseReferenceAssemblyPackages>false</AutomaticallyUseReferenceAssemblyPackages>
+    <FrameworkPathOverride Condition="'$(FrameworkPathOverride)' == ''">$(KspManaged)</FrameworkPathOverride>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Source/*.cs" />
+    <Reference Include="Assembly-CSharp"><HintPath>$(KspManaged)/Assembly-CSharp.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Assembly-CSharp-firstpass"><HintPath>$(KspManaged)/Assembly-CSharp-firstpass.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine"><HintPath>$(KspManaged)/UnityEngine.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.CoreModule"><HintPath>$(KspManaged)/UnityEngine.CoreModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.IMGUIModule"><HintPath>$(KspManaged)/UnityEngine.IMGUIModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.PhysicsModule"><HintPath>$(KspManaged)/UnityEngine.PhysicsModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.TextRenderingModule"><HintPath>$(KspManaged)/UnityEngine.TextRenderingModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="0Harmony"><HintPath>$(HarmonyPath)</HintPath><Private>false</Private></Reference>
+    <Reference Include="ClickThroughBlocker"><HintPath>$(ClickThroughPath)</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+  <Target Name="ValidateKspReferences" BeforeTargets="ResolveReferences">
+    <Error Condition="!Exists('$(KspManaged)/Assembly-CSharp.dll')" Text="Set KSP_ROOT or -p:KspRoot to your KSP 1.12.x installation." />
+    <Error Condition="!Exists('$(HarmonyPath)')" Text="Missing HarmonyKSP: $(HarmonyPath)" />
+    <Error Condition="!Exists('$(ClickThroughPath)')" Text="Missing ClickThroughBlocker: $(ClickThroughPath)" />
+  </Target>
+</Project>
